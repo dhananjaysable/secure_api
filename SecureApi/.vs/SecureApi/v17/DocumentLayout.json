@@ -1,0 +1,194 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\secure_api\\backend\\SecureApi\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{774C7826-1834-4F5E-AE8D-7CDE3F257F8C}|SecureApi\\SecureApi.csproj|d:\\secure_api\\backend\\secureapi\\secureapi\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{774C7826-1834-4F5E-AE8D-7CDE3F257F8C}|SecureApi\\SecureApi.csproj|solutionrelative:secureapi\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{774C7826-1834-4F5E-AE8D-7CDE3F257F8C}|SecureApi\\SecureApi.csproj|d:\\secure_api\\backend\\secureapi\\secureapi\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{774C7826-1834-4F5E-AE8D-7CDE3F257F8C}|SecureApi\\SecureApi.csproj|solutionrelative:secureapi\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{774C7826-1834-4F5E-AE8D-7CDE3F257F8C}|SecureApi\\SecureApi.csproj|d:\\secure_api\\backend\\secureapi\\secureapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{774C7826-1834-4F5E-AE8D-7CDE3F257F8C}|SecureApi\\SecureApi.csproj|solutionrelative:secureapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{774C7826-1834-4F5E-AE8D-7CDE3F257F8C}|SecureApi\\SecureApi.csproj|d:\\secure_api\\backend\\secureapi\\secureapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{774C7826-1834-4F5E-AE8D-7CDE3F257F8C}|SecureApi\\SecureApi.csproj|solutionrelative:secureapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{774C7826-1834-4F5E-AE8D-7CDE3F257F8C}|SecureApi\\SecureApi.csproj|d:\\secure_api\\backend\\secureapi\\secureapi\\middleware\\exceptionhandlingmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{774C7826-1834-4F5E-AE8D-7CDE3F257F8C}|SecureApi\\SecureApi.csproj|solutionrelative:secureapi\\middleware\\exceptionhandlingmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{774C7826-1834-4F5E-AE8D-7CDE3F257F8C}|SecureApi\\SecureApi.csproj|d:\\secure_api\\backend\\secureapi\\secureapi\\secureapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{774C7826-1834-4F5E-AE8D-7CDE3F257F8C}|SecureApi\\SecureApi.csproj|solutionrelative:secureapi\\secureapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{774C7826-1834-4F5E-AE8D-7CDE3F257F8C}|SecureApi\\SecureApi.csproj|d:\\secure_api\\backend\\secureapi\\secureapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{774C7826-1834-4F5E-AE8D-7CDE3F257F8C}|SecureApi\\SecureApi.csproj|solutionrelative:secureapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{774C7826-1834-4F5E-AE8D-7CDE3F257F8C}|SecureApi\\SecureApi.csproj|d:\\secure_api\\backend\\secureapi\\secureapi\\middleware\\securityheadersmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{774C7826-1834-4F5E-AE8D-7CDE3F257F8C}|SecureApi\\SecureApi.csproj|solutionrelative:secureapi\\middleware\\securityheadersmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{774C7826-1834-4F5E-AE8D-7CDE3F257F8C}|SecureApi\\SecureApi.csproj|d:\\secure_api\\backend\\secureapi\\secureapi\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{774C7826-1834-4F5E-AE8D-7CDE3F257F8C}|SecureApi\\SecureApi.csproj|solutionrelative:secureapi\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{774C7826-1834-4F5E-AE8D-7CDE3F257F8C}|SecureApi\\SecureApi.csproj|d:\\secure_api\\backend\\secureapi\\secureapi\\controllers\\baseapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{774C7826-1834-4F5E-AE8D-7CDE3F257F8C}|SecureApi\\SecureApi.csproj|solutionrelative:secureapi\\controllers\\baseapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "D:\\secure_api\\backend\\SecureApi\\SecureApi\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "SecureApi\\Services\\AuthService.cs",
+              "ToolTip": "D:\\secure_api\\backend\\SecureApi\\SecureApi\\Services\\AuthService.cs",
+              "RelativeToolTip": "SecureApi\\Services\\AuthService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-12T10:27:22.335Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "D:\\secure_api\\backend\\SecureApi\\SecureApi\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "SecureApi\\Services\\UserService.cs",
+              "ToolTip": "D:\\secure_api\\backend\\SecureApi\\SecureApi\\Services\\UserService.cs",
+              "RelativeToolTip": "SecureApi\\Services\\UserService.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAIwBAAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-12T10:27:14.66Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\secure_api\\backend\\SecureApi\\SecureApi\\Program.cs",
+              "RelativeDocumentMoniker": "SecureApi\\Program.cs",
+              "ToolTip": "D:\\secure_api\\backend\\SecureApi\\SecureApi\\Program.cs",
+              "RelativeToolTip": "SecureApi\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-12T10:26:32.942Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\secure_api\\backend\\SecureApi\\SecureApi\\appsettings.json",
+              "RelativeDocumentMoniker": "SecureApi\\appsettings.json",
+              "ToolTip": "D:\\secure_api\\backend\\SecureApi\\SecureApi\\appsettings.json",
+              "RelativeToolTip": "SecureApi\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-11-12T10:14:02.017Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ExceptionHandlingMiddleware.cs",
+              "DocumentMoniker": "D:\\secure_api\\backend\\SecureApi\\SecureApi\\Middleware\\ExceptionHandlingMiddleware.cs",
+              "RelativeDocumentMoniker": "SecureApi\\Middleware\\ExceptionHandlingMiddleware.cs",
+              "ToolTip": "D:\\secure_api\\backend\\SecureApi\\SecureApi\\Middleware\\ExceptionHandlingMiddleware.cs",
+              "RelativeToolTip": "SecureApi\\Middleware\\ExceptionHandlingMiddleware.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAmwCkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-12T10:13:39.272Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SecurityHeadersMiddleware.cs",
+              "DocumentMoniker": "D:\\secure_api\\backend\\SecureApi\\SecureApi\\Middleware\\SecurityHeadersMiddleware.cs",
+              "RelativeDocumentMoniker": "SecureApi\\Middleware\\SecurityHeadersMiddleware.cs",
+              "ToolTip": "D:\\secure_api\\backend\\SecureApi\\SecureApi\\Middleware\\SecurityHeadersMiddleware.cs",
+              "RelativeToolTip": "SecureApi\\Middleware\\SecurityHeadersMiddleware.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-12T10:12:59.532Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "D:\\secure_api\\backend\\SecureApi\\SecureApi\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "SecureApi\\Controllers\\UsersController.cs",
+              "ToolTip": "D:\\secure_api\\backend\\SecureApi\\SecureApi\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "SecureApi\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwCQAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-12T10:12:21.709Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\secure_api\\backend\\SecureApi\\SecureApi\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "SecureApi\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\secure_api\\backend\\SecureApi\\SecureApi\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "SecureApi\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEQAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-12T10:11:45.654Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "BaseApiController.cs",
+              "DocumentMoniker": "D:\\secure_api\\backend\\SecureApi\\SecureApi\\Controllers\\BaseApiController.cs",
+              "RelativeDocumentMoniker": "SecureApi\\Controllers\\BaseApiController.cs",
+              "ToolTip": "D:\\secure_api\\backend\\SecureApi\\SecureApi\\Controllers\\BaseApiController.cs",
+              "RelativeToolTip": "SecureApi\\Controllers\\BaseApiController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-12T10:11:00.503Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SecureApi.csproj",
+              "DocumentMoniker": "D:\\secure_api\\backend\\SecureApi\\SecureApi\\SecureApi.csproj",
+              "RelativeDocumentMoniker": "SecureApi\\SecureApi.csproj",
+              "ToolTip": "D:\\secure_api\\backend\\SecureApi\\SecureApi\\SecureApi.csproj",
+              "RelativeToolTip": "SecureApi\\SecureApi.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-12T09:57:43.298Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

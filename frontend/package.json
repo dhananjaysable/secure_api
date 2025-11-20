@@ -1,0 +1,25 @@
+{
+  "name": "secure-api-frontend",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@types/react-dom": "^19.2.3",
+    "axios": "^1.6.0",
+    "crypto-js": "^4.1.1",
+    "eslint": "^9.39.1",
+    "eslint-config-next": "^16.0.1",
+    "next": "^14.2.33",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.1.0",
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "typescript": "^5.0.0"
+  }
+}
