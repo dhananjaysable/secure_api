@@ -6,6 +6,9 @@ using SecureApi.Data;
 using SecureApi.Middleware;
 using SecureApi.Services;
 using System.Text;
+using AspNetCoreRateLimit;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -63,6 +66,16 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddSingleton<EncryptionService>();
 builder.Services.AddSingleton<JwtService>();
 
+// Rate Limiting
+builder.Services.AddMemoryCache();
+builder.Services.Configure<IpRateLimitOptions>(builder.Configuration.GetSection("IpRateLimiting"));
+builder.Services.AddInMemoryRateLimiting();
+builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+
+// FluentValidation
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+
 // JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var key = Encoding.UTF8.GetBytes(jwtSettings["SecretKey"]);
@@ -98,6 +111,7 @@ app.UseHttpsRedirection();
 app.UseCors("NextJsApp");
 
 // Custom middleware
+app.UseIpRateLimiting();
 app.UseMiddleware<SecurityHeadersMiddleware>();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
