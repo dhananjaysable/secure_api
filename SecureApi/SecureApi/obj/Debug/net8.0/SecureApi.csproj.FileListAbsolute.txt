@@ -91,3 +91,4 @@ D:\secure_api\SecureApi\SecureApi\obj\Debug\net8.0\refint\SecureApi.dll
 D:\secure_api\SecureApi\SecureApi\obj\Debug\net8.0\SecureApi.pdb
 D:\secure_api\SecureApi\SecureApi\obj\Debug\net8.0\SecureApi.genruntimeconfig.cache
 D:\secure_api\SecureApi\SecureApi\obj\Debug\net8.0\ref\SecureApi.dll
+D:\secure_api\SecureApi\SecureApi\obj\Debug\net8.0\SecureApi.sourcelink.json
