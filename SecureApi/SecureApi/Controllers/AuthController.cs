@@ -85,7 +85,7 @@ namespace SecureApi.Controllers
             if (user == null)
                 return NotFound();
 
-            return Ok(new UserProfile
+            return EncryptedOk(new UserProfile
             {
                 Id = user.Id,
                 Email = user.Email,

@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
+using SecureApi.Services;
 
 namespace SecureApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     [Microsoft.AspNetCore.Authorization.Authorize(Roles = "Admin")]
-    public class WeatherForecastController : ControllerBase
+    public class WeatherForecastController : BaseApiController
     {
         private static readonly string[] Summaries = new[]
         {
@@ -14,21 +15,24 @@ namespace SecureApi.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, EncryptionService encryptionService)
+            : base(encryptionService)
         {
             _logger = logger;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        public IActionResult Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            var data = Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
                 TemperatureC = Random.Shared.Next(-20, 55),
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+
+            return EncryptedOk(data);
         }
     }
 }
