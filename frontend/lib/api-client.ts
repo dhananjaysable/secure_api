@@ -74,6 +74,7 @@ class ApiClient {
               this.setRefreshToken(newRefreshToken);
 
               originalRequest.headers.Authorization = `Bearer ${newToken}`;
+              originalRequest.headers['X-No-Encrypt'] = 'true';
 
               // We need to retry the original request. 
               // Note: originalRequest.data is already encrypted from the first attempt.
