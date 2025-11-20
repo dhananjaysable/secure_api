@@ -9,6 +9,7 @@ namespace SecureApi.Services
     public interface IAuthService
     {
         Task<AuthResponse?> LoginAsync(LoginRequest request);
+        Task<AuthResponse?> RegisterAsync(RegisterRequest request);
         Task<User?> GetUserByIdAsync(int id);
     }
 
@@ -25,12 +26,44 @@ namespace SecureApi.Services
 
         public async Task<AuthResponse?> LoginAsync(LoginRequest request)
         {
-            // In real application, use proper password hashing
-            var user = _context.Users.FirstOrDefault(u =>
-                u.Email == request.Email && u.PasswordHash == HashPassword(request.Password));
+            // Find user by email
+            var user = _context.Users.FirstOrDefault(u => u.Email == request.Email);
 
-            if (user == null)
+            // Verify password
+            if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
                 return null;
+
+            var token = _jwtService.GenerateToken(user);
+
+            return new AuthResponse
+            {
+                Token = token,
+                User = new UserProfile
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName
+                }
+            };
+        }
+
+        public async Task<AuthResponse?> RegisterAsync(RegisterRequest request)
+        {
+            if (_context.Users.Any(u => u.Email == request.Email))
+                return null;
+
+            var user = new User
+            {
+                Email = request.Email,
+                PasswordHash = HashPassword(request.Password),
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Role = "User" // Default role
+            };
+
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
 
             var token = _jwtService.GenerateToken(user);
 
@@ -54,11 +87,7 @@ namespace SecureApi.Services
 
         private string HashPassword(string password)
         {
-            // For demo purposes only - use proper hashing like BCrypt in production
-            using var sha256 = SHA256.Create();
-            var bytes = Encoding.UTF8.GetBytes(password);
-            var hash = sha256.ComputeHash(bytes);
-            return Convert.ToBase64String(hash);
+            return BCrypt.Net.BCrypt.HashPassword(password);
         }
     }
 }

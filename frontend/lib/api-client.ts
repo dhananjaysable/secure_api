@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { EncryptionService } from './encryption';
+import { User } from '../types/api';
 
 class ApiClient {
   private client: AxiosInstance;
@@ -83,6 +84,14 @@ class ApiClient {
   // Auth methods
   async login(credentials: { email: string; password: string }) {
     const response = await this.client.post('/auth/login', credentials);
+    const { token, user } = response.data;
+
+    this.setToken(token);
+    return { user, token };
+  }
+
+  async register(data: { email: string; password: string; firstName: string; lastName: string }) {
+    const response = await this.client.post('/auth/register', data);
     const { token, user } = response.data;
 
     this.setToken(token);

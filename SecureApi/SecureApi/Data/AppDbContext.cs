@@ -13,17 +13,16 @@ namespace SecureApi.Data
         {
             if (!Users.Any())
             {
-                // Demo user - in production, use proper password hashing
-                using var sha256 = System.Security.Cryptography.SHA256.Create();
-                var passwordHash = Convert.ToBase64String(
-                    sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes("password123")));
+                // Demo user - using BCrypt hashing
+                var passwordHash = BCrypt.Net.BCrypt.HashPassword("password123");
 
                 Users.Add(new User
                 {
                     Email = "john.doe@example.com",
                     PasswordHash = passwordHash,
                     FirstName = "John",
-                    LastName = "Doe"
+                    LastName = "Doe",
+                    Role = "Admin"
                 });
 
                 Users.Add(new User
@@ -31,7 +30,8 @@ namespace SecureApi.Data
                     Email = "jane.smith@example.com",
                     PasswordHash = passwordHash,
                     FirstName = "Jane",
-                    LastName = "Smith"
+                    LastName = "Smith",
+                    Role = "User"
                 });
 
                 SaveChanges();

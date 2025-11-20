@@ -36,6 +36,25 @@ namespace SecureApi.Controllers
             }
         }
 
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] EncryptedRequest request)
+        {
+            try
+            {
+                var registerRequest = DecryptRequest<RegisterRequest>(request.Data);
+                var authResponse = await _authService.RegisterAsync(registerRequest);
+
+                if (authResponse == null)
+                    return EncryptedError("User already exists", 400);
+
+                return EncryptedOk(authResponse);
+            }
+            catch (Exception ex)
+            {
+                return EncryptedError("Invalid encrypted data");
+            }
+        }
+
         [HttpGet("profile")]
         public async Task<IActionResult> GetProfile()
         {
