@@ -55,6 +55,25 @@ namespace SecureApi.Controllers
             }
         }
 
+        [HttpPost("refresh")]
+        public async Task<IActionResult> Refresh([FromBody] EncryptedRequest request)
+        {
+            try
+            {
+                var tokenRequest = DecryptRequest<RefreshTokenRequest>(request.Data);
+                var authResponse = await _authService.RefreshTokenAsync(tokenRequest.Token, tokenRequest.RefreshToken);
+
+                if (authResponse == null)
+                    return EncryptedError("Invalid token", 400);
+
+                return EncryptedOk(authResponse);
+            }
+            catch (Exception ex)
+            {
+                return EncryptedError("Invalid encrypted data");
+            }
+        }
+
         [HttpGet("profile")]
         public async Task<IActionResult> GetProfile()
         {

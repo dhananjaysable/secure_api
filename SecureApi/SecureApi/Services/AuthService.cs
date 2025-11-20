@@ -10,6 +10,7 @@ namespace SecureApi.Services
     {
         Task<AuthResponse?> LoginAsync(LoginRequest request);
         Task<AuthResponse?> RegisterAsync(RegisterRequest request);
+        Task<AuthResponse?> RefreshTokenAsync(string token, string refreshToken);
         Task<User?> GetUserByIdAsync(int id);
     }
 
@@ -34,10 +35,16 @@ namespace SecureApi.Services
                 return null;
 
             var token = _jwtService.GenerateToken(user);
+            var refreshToken = _jwtService.GenerateRefreshToken();
+
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
+            await _context.SaveChangesAsync();
 
             return new AuthResponse
             {
                 Token = token,
+                RefreshToken = refreshToken,
                 User = new UserProfile
                 {
                     Id = user.Id,
@@ -66,10 +73,48 @@ namespace SecureApi.Services
             await _context.SaveChangesAsync();
 
             var token = _jwtService.GenerateToken(user);
+            var refreshToken = _jwtService.GenerateRefreshToken();
+
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
+            await _context.SaveChangesAsync();
 
             return new AuthResponse
             {
                 Token = token,
+                RefreshToken = refreshToken,
+                User = new UserProfile
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName
+                }
+            };
+        }
+
+        public async Task<AuthResponse?> RefreshTokenAsync(string token, string refreshToken)
+        {
+            var principal = _jwtService.GetPrincipalFromExpiredToken(token);
+            if (principal == null) return null;
+
+            var userIdClaim = principal.Claims.FirstOrDefault(c => c.Type == System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub);
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId)) return null;
+
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+                return null;
+
+            var newToken = _jwtService.GenerateToken(user);
+            var newRefreshToken = _jwtService.GenerateRefreshToken();
+
+            user.RefreshToken = newRefreshToken;
+            await _context.SaveChangesAsync();
+
+            return new AuthResponse
+            {
+                Token = newToken,
+                RefreshToken = newRefreshToken,
                 User = new UserProfile
                 {
                     Id = user.Id,
