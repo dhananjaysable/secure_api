@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using SecureApi.Models;
 using SecureApi.Services;
+using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SecureApi.Controllers
 {
@@ -10,11 +12,19 @@ namespace SecureApi.Controllers
     public class AuthController : BaseApiController
     {
         private readonly IAuthService _authService;
+        private readonly IValidator<LoginRequest> _loginValidator;
+        private readonly IValidator<RegisterRequest> _registerValidator;
 
-        public AuthController(IAuthService authService, EncryptionService encryptionService)
+        public AuthController(
+            IAuthService authService, 
+            EncryptionService encryptionService,
+            IValidator<LoginRequest> loginValidator,
+            IValidator<RegisterRequest> registerValidator)
             : base(encryptionService)
         {
             _authService = authService;
+            _loginValidator = loginValidator;
+            _registerValidator = registerValidator;
         }
 
         [HttpPost("login")]
@@ -23,6 +33,11 @@ namespace SecureApi.Controllers
             try
             {
                 var loginRequest = DecryptRequest<LoginRequest>(request.Data);
+                
+                var validationResult = await _loginValidator.ValidateAsync(loginRequest);
+                if (!validationResult.IsValid)
+                    return EncryptedError(string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage)), 400);
+
                 var authResponse = await _authService.LoginAsync(loginRequest);
 
                 if (authResponse == null)
@@ -42,6 +57,11 @@ namespace SecureApi.Controllers
             try
             {
                 var registerRequest = DecryptRequest<RegisterRequest>(request.Data);
+
+                var validationResult = await _registerValidator.ValidateAsync(registerRequest);
+                if (!validationResult.IsValid)
+                    return EncryptedError(string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage)), 400);
+
                 var authResponse = await _authService.RegisterAsync(registerRequest);
 
                 if (authResponse == null)
@@ -75,13 +95,17 @@ namespace SecureApi.Controllers
         }
 
         [HttpGet("profile")]
+        [Authorize]
         public async Task<IActionResult> GetProfile()
         {
-            var userId = GetUserIdFromToken();
-            if (userId == null)
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub); // Or "id" depending on how it was issued
+            // Fallback to finding "id" claim if "sub" is not present or different
+            if (userIdClaim == null) userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
+
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
                 return Unauthorized();
 
-            var user = await _authService.GetUserByIdAsync(userId.Value);
+            var user = await _authService.GetUserByIdAsync(userId);
             if (user == null)
                 return NotFound();
 
@@ -92,17 +116,6 @@ namespace SecureApi.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName
             });
-        }
-
-        private int? GetUserIdFromToken()
-        {
-            var jwtService = HttpContext.RequestServices.GetService<JwtService>();
-            var token = HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-
-            if (string.IsNullOrEmpty(token))
-                return null;
-
-            return jwtService?.ValidateToken(token);
         }
     }
 }
