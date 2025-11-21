@@ -45,7 +45,7 @@ namespace SecureApi.Controllers
 
                 return EncryptedOk(authResponse);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return EncryptedError("Invalid encrypted data");
             }
@@ -69,7 +69,7 @@ namespace SecureApi.Controllers
 
                 return EncryptedOk(authResponse);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return EncryptedError("Invalid encrypted data");
             }
@@ -88,7 +88,7 @@ namespace SecureApi.Controllers
 
                 return EncryptedOk(authResponse);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return EncryptedError("Invalid encrypted data");
             }

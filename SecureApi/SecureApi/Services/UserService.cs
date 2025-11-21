@@ -19,15 +19,15 @@ namespace SecureApi.Services
             _context = context;
         }
 
-        public async Task<List<UserProfile>> GetAllUsersAsync()
+        public Task<List<UserProfile>> GetAllUsersAsync()
         {
-            return _context.Users.Select(u => new UserProfile
+            return Task.FromResult(_context.Users.Select(u => new UserProfile
             {
                 Id = u.Id,
                 Email = u.Email,
                 FirstName = u.FirstName,
                 LastName = u.LastName
-            }).ToList();
+            }).ToList());
         }
 
         public async Task<UserProfile?> GetUserByIdAsync(int id)

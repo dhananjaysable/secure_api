@@ -12,8 +12,8 @@ namespace SecureApi.Services
         public EncryptionService(IConfiguration configuration)
         {
             var encryptionSettings = configuration.GetSection("Encryption");
-            _key = Convert.FromBase64String(encryptionSettings["Key"]);
-            _iv = Convert.FromBase64String(encryptionSettings["IV"]);
+            _key = Convert.FromBase64String(encryptionSettings["Key"] ?? string.Empty);
+            _iv = Convert.FromBase64String(encryptionSettings["IV"] ?? string.Empty);
         }
 
         public string Encrypt(string plainText)

@@ -27,7 +27,7 @@ namespace SecureApi.Services
             public string GenerateToken(User user)
             {
                 var jwtSettings = _configuration.GetSection("Jwt");
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["SecretKey"]));
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["SecretKey"] ?? string.Empty));
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
                 var claims = new[]
@@ -55,7 +55,7 @@ namespace SecureApi.Services
                     return null;
 
                 var jwtSettings = _configuration.GetSection("Jwt");
-                var key = Encoding.UTF8.GetBytes(jwtSettings["SecretKey"]);
+                var key = Encoding.UTF8.GetBytes(jwtSettings["SecretKey"] ?? string.Empty);
 
                 try
                 {
@@ -84,7 +84,7 @@ namespace SecureApi.Services
             public ClaimsPrincipal? GetPrincipalFromExpiredToken(string? token)
             {
                 var jwtSettings = _configuration.GetSection("Jwt");
-                var key = Encoding.UTF8.GetBytes(jwtSettings["SecretKey"]);
+                var key = Encoding.UTF8.GetBytes(jwtSettings["SecretKey"] ?? string.Empty);
 
                 var tokenValidationParameters = new TokenValidationParameters
                 {
