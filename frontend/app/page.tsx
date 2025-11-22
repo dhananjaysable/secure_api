@@ -11,6 +11,7 @@ import { Cloud, CloudRain, Sun, Thermometer, ShieldCheck, Lock } from 'lucide-re
 import dynamic from 'next/dynamic';
 
 const ParticleNetwork = dynamic(() => import('../components/ParticleNetwork'), { ssr: false });
+import TiltCard from '../components/ui/TiltCard';
 
 interface WeatherForecast {
   date: string;
@@ -193,13 +194,18 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 + (i * 0.1) }}
-                className="p-6 rounded-2xl bg-card/30 border border-border/50 backdrop-blur-sm"
               >
-                <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <feature.icon className="h-6 w-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
+                <TiltCard className="h-full">
+                  <Card className="glass-card border-0 h-full hover:bg-white/5 transition-colors duration-300">
+                    <div className="p-6 flex flex-col items-center text-center h-full">
+                      <div className="p-3 rounded-full bg-white/5 mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <feature.icon className="w-8 h-8 text-indigo-400" />
+                      </div>
+                      <h3 className="text-xl font-semibold mb-2 text-white">{feature.title}</h3>
+                      <p className="text-gray-400">{feature.description}</p>
+                    </div>
+                  </Card>
+                </TiltCard>
               </motion.div>
             ))}
           </div>
