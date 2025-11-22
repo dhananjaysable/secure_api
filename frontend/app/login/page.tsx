@@ -21,6 +21,18 @@ export default function LoginPage() {
         e.preventDefault();
         setError('');
 
+        // Input Validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            setError('Please enter a valid email address');
+            return;
+        }
+
+        if (password.length < 6) {
+            setError('Password must be at least 6 characters long');
+            return;
+        }
+
         const success = await login(email, password);
         if (success) {
             router.push('/');

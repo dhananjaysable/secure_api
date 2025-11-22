@@ -31,7 +31,7 @@ const nextConfig = {
                     },
                     {
                         key: 'Content-Security-Policy',
-                        value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:;",
+                        value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data: https://r2cdn.perplexity.ai; connect-src 'self' https://localhost:7162 http://localhost:5164;",
                     },
                 ],
             },

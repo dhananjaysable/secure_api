@@ -4,8 +4,10 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function CustomCursor() {
+    // State for cursor tracking
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isHovering, setIsHovering] = useState(false);
+    const [isClicking, setIsClicking] = useState(false);
 
     useEffect(() => {
         const updateMousePosition = (e: MouseEvent) => {
@@ -27,12 +29,19 @@ export default function CustomCursor() {
             }
         };
 
+        const handleMouseDown = () => setIsClicking(true);
+        const handleMouseUp = () => setIsClicking(false);
+
         window.addEventListener("mousemove", updateMousePosition);
         window.addEventListener("mouseover", handleMouseOver);
+        window.addEventListener("mousedown", handleMouseDown);
+        window.addEventListener("mouseup", handleMouseUp);
 
         return () => {
             window.removeEventListener("mousemove", updateMousePosition);
             window.removeEventListener("mouseover", handleMouseOver);
+            window.removeEventListener("mousedown", handleMouseDown);
+            window.removeEventListener("mouseup", handleMouseUp);
         };
     }, []);
 
@@ -43,7 +52,7 @@ export default function CustomCursor() {
                 animate={{
                     x: mousePosition.x - 8,
                     y: mousePosition.y - 8,
-                    scale: isHovering ? 1.5 : 1,
+                    scale: isClicking ? 0.8 : isHovering ? 1.5 : 1,
                 }}
                 transition={{
                     type: "spring",
@@ -56,7 +65,8 @@ export default function CustomCursor() {
                 animate={{
                     x: mousePosition.x - 16,
                     y: mousePosition.y - 16,
-                    scale: isHovering ? 2 : 1,
+                    scale: isClicking ? 1.2 : isHovering ? 2 : 1,
+                    opacity: isClicking ? 0.5 : 1
                 }}
                 transition={{
                     type: "spring",
@@ -64,6 +74,18 @@ export default function CustomCursor() {
                     damping: 20,
                 }}
             />
+            {isClicking && (
+                <motion.div
+                    className="fixed top-0 left-0 w-8 h-8 border border-white rounded-full pointer-events-none z-[9997] mix-blend-difference"
+                    initial={{ scale: 1, opacity: 1 }}
+                    animate={{ scale: 4, opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                    style={{
+                        left: mousePosition.x - 16,
+                        top: mousePosition.y - 16,
+                    }}
+                />
+            )}
         </>
     );
 }

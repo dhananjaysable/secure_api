@@ -36,6 +36,9 @@ export default function TiltCard({ children, className = "" }: TiltCardProps) {
 
         x.set(xPct);
         y.set(yPct);
+
+        ref.current.style.setProperty("--mouse-x", `${mouseX}px`);
+        ref.current.style.setProperty("--mouse-y", `${mouseY}px`);
     };
 
     const handleMouseLeave = () => {
@@ -53,8 +56,15 @@ export default function TiltCard({ children, className = "" }: TiltCardProps) {
                 rotateX,
                 transformStyle: "preserve-3d",
             }}
-            className={`relative ${className}`}
+            className={`relative group ${className}`}
         >
+            <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10"
+                style={{
+                    background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.1), transparent 40%)`,
+                    borderRadius: "inherit",
+                }}
+            />
             <div
                 style={{
                     transform: "translateZ(75px)",

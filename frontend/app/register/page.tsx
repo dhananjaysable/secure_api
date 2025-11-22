@@ -15,6 +15,7 @@ export default function RegisterPage() {
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [honeypot, setHoneypot] = useState(''); // Honeypot state
     const [error, setError] = useState('');
     const { register, isLoading } = useAuth();
     const router = useRouter();
@@ -22,6 +23,13 @@ export default function RegisterPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
+
+        // Honeypot Check
+        if (honeypot) {
+            // Silently fail or log the bot attempt
+            console.warn("Bot detected via honeypot");
+            return;
+        }
 
         // Enhanced Validation
         if (password.length < 8) {
@@ -81,6 +89,18 @@ export default function RegisterPage() {
                     </CardHeader>
                     <CardContent>
                         <form onSubmit={handleSubmit} className="space-y-4">
+                            {/* Honeypot Field - Invisible to users, visible to bots */}
+                            <div style={{ display: 'none' }} aria-hidden="true">
+                                <Input
+                                    type="text"
+                                    name="website"
+                                    tabIndex={-1}
+                                    autoComplete="off"
+                                    value={honeypot}
+                                    onChange={(e) => setHoneypot(e.target.value)}
+                                />
+                            </div>
+
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
                                     <div className="relative">

@@ -12,6 +12,7 @@ import dynamic from 'next/dynamic';
 
 const ParticleNetwork = dynamic(() => import('../components/ParticleNetwork'), { ssr: false });
 import TiltCard from '../components/ui/TiltCard';
+import MagneticButton from '../components/ui/MagneticButton';
 
 interface WeatherForecast {
   date: string;
@@ -188,12 +189,13 @@ export default function Home() {
                 description: "Built with Next.js 14, .NET 8, and Tailwind CSS for maximum performance.",
                 icon: Cloud
               }
-            ].map((feature, i) => (
+            ].map((feature, index) => (
               <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 + (i * 0.1) }}
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
               >
                 <TiltCard className="h-full">
                   <Card className="glass-card border-0 h-full hover:bg-white/5 transition-colors duration-300">
