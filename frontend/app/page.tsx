@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import { Cloud, CloudRain, Sun, Thermometer, ShieldCheck, Lock } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
-const Hero3D = dynamic(() => import('../components/Hero3D'), { ssr: false });
+const ParticleNetwork = dynamic(() => import('../components/ParticleNetwork'), { ssr: false });
 
 interface WeatherForecast {
   date: string;
@@ -81,7 +81,7 @@ export default function Home() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-24">
         <div className="text-center space-y-8 max-w-3xl mx-auto">
           <div className="mb-12">
-            <Hero3D />
+            <ParticleNetwork />
           </div>
 
           <motion.div

@@ -111,6 +111,7 @@ app.UseHttpsRedirection();
 app.UseCors("NextJsApp");
 
 // Custom middleware
+app.UseMiddleware<RequestLoggingMiddleware>();
 app.UseIpRateLimiting();
 app.UseMiddleware<SecurityHeadersMiddleware>();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
