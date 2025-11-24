@@ -21,6 +21,10 @@
   --radius-sm: calc(var(--radius) - 4px);
 }
 
+* {
+  cursor: none !important;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #09090b;
