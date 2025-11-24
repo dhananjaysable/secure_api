@@ -54,7 +54,7 @@ export default function AwardsPage() {
     }, []);
 
     return (
-        <div className="min-h-screen pt-20 pb-12 px-4 relative overflow-hidden">
+        <div className="min-h-screen flex flex-col justify-center py-20 px-4 relative overflow-hidden">
             {/* Animated Background */}
             <div className="absolute inset-0 -z-10 bg-background">
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
@@ -68,8 +68,8 @@ export default function AwardsPage() {
                 />
             </div>
 
-            <div className="max-w-7xl mx-auto space-y-8">
-                <div className="text-center space-y-4">
+            <div className="max-w-7xl mx-auto space-y-6">
+                <div className="text-center space-y-2">
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -96,10 +96,10 @@ export default function AwardsPage() {
                             whileHover={{ scale: 1.02 }}
                             transition={{ delay: index * 0.1 }}
                         >
-                            <TiltCard className="h-full">
-                                <Card className="h-full bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-colors group cursor-pointer">
+                            <TiltCard>
+                                <Card className="bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-colors group cursor-pointer">
                                     <CardHeader className="flex flex-row items-center gap-6">
-                                        <div className={`p-4 rounded-2xl ${award.bg} group-hover:scale-110 transition-transform duration-300`}>
+                                        <div className={`p-4 rounded-2xl ${award.bg} group-hover:scale-110 group-hover:rotate-12 transition-all duration-300`}>
                                             <award.icon className={`w-10 h-10 ${award.color}`} />
                                         </div>
                                         <div>

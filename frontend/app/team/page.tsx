@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
+import { Github, Linkedin, Twitter } from 'lucide-react';
 import MagneticButton from '@/components/ui/MagneticButton';
 import TiltCard from '@/components/ui/TiltCard';
 
@@ -95,10 +95,11 @@ export default function TeamPage() {
                             key={index}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
+                            whileHover={{ scale: 1.03 }}
                             transition={{ delay: 0.2 + index * 0.1 }}
                         >
                             <TiltCard className="h-full">
-                                <div className="h-full bg-card rounded-xl overflow-hidden border border-border group">
+                                <div className="h-full bg-card/50 backdrop-blur-sm rounded-xl overflow-hidden border border-border/50 group hover:border-primary/50 transition-colors">
                                     <div className="aspect-square overflow-hidden relative">
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                         <img
@@ -107,22 +108,22 @@ export default function TeamPage() {
                                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                         />
                                         <div className="absolute bottom-4 left-0 right-0 z-20 flex justify-center gap-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                                            <MagneticButton className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-gray-200">
+                                            <MagneticButton className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-gray-200 cursor-pointer">
                                                 <Twitter className="w-5 h-5" />
                                             </MagneticButton>
-                                            <MagneticButton className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-gray-200">
+                                            <MagneticButton className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-gray-200 cursor-pointer">
                                                 <Linkedin className="w-5 h-5" />
                                             </MagneticButton>
-                                            <MagneticButton className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-gray-200">
+                                            <MagneticButton className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-gray-200 cursor-pointer">
                                                 <Github className="w-5 h-5" />
                                             </MagneticButton>
                                         </div>
                                     </div>
 
                                     <div className="p-6 text-center">
-                                        <h3 className="text-xl font-bold mb-1">{member.name}</h3>
+                                        <h3 className="text-xl font-bold mb-1 group-hover:text-primary transition-colors">{member.name}</h3>
                                         <p className="text-primary text-sm font-medium mb-4">{member.role}</p>
-                                        <p className="text-muted-foreground text-sm">
+                                        <p className="text-muted-foreground text-sm group-hover:text-foreground transition-colors">
                                             {member.bio}
                                         </p>
                                     </div>

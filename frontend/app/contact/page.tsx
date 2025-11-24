@@ -21,7 +21,7 @@ export default function ContactPage() {
     }, []);
 
     return (
-        <div className="min-h-screen pt-20 pb-12 px-4 relative overflow-hidden">
+        <div className="min-h-screen pt-20 pb-12 px-4 relative overflow-hidden flex flex-col justify-center">
             {/* Animated Background */}
             <div className="absolute inset-0 -z-10 bg-background">
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
@@ -66,16 +66,17 @@ export default function ContactPage() {
                                 key={item.title}
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
+                                whileHover={{ scale: 1.02, x: 10 }}
                                 transition={{ delay: 0.2 + index * 0.1 }}
                             >
-                                <Card className="bg-card/50 backdrop-blur-sm border-border/50">
+                                <Card className="bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-colors group cursor-pointer">
                                     <CardContent className="flex items-center gap-4 p-4">
-                                        <div className="p-3 rounded-full bg-primary/10 text-primary">
+                                        <div className="p-3 rounded-full bg-primary/10 text-primary group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300">
                                             <item.icon className="w-6 h-6" />
                                         </div>
                                         <div>
-                                            <p className="font-medium">{item.title}</p>
-                                            <p className="text-muted-foreground">{item.value}</p>
+                                            <p className="font-medium group-hover:text-primary transition-colors">{item.title}</p>
+                                            <p className="text-muted-foreground group-hover:text-foreground transition-colors">{item.value}</p>
                                         </div>
                                     </CardContent>
                                 </Card>

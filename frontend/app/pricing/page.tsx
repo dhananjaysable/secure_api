@@ -103,6 +103,7 @@ export default function PricingPage() {
                             key={plan.name}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
+                            whileHover={{ y: -10 }}
                             transition={{ delay: index * 0.1 }}
                             className="relative"
                         >
@@ -114,9 +115,9 @@ export default function PricingPage() {
                                 </div>
                             )}
                             <TiltCard className="h-full">
-                                <Card className={`h-full bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-colors ${plan.popular ? 'border-primary/50 shadow-lg shadow-primary/10' : ''}`}>
+                                <Card className={`h-full bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-colors group cursor-pointer ${plan.popular ? 'border-primary/50 shadow-lg shadow-primary/10' : ''}`}>
                                     <CardHeader>
-                                        <CardTitle className="text-2xl">{plan.name}</CardTitle>
+                                        <CardTitle className="text-2xl group-hover:text-primary transition-colors">{plan.name}</CardTitle>
                                         <CardDescription>{plan.description}</CardDescription>
                                     </CardHeader>
                                     <CardContent className="space-y-6">
@@ -127,8 +128,8 @@ export default function PricingPage() {
                                         <div className="space-y-2">
                                             {plan.features.map((feature) => (
                                                 <div key={feature} className="flex items-center gap-2">
-                                                    <Check className="w-4 h-4 text-green-500" />
-                                                    <span className="text-sm">{feature}</span>
+                                                    <Check className="w-4 h-4 text-green-500 group-hover:scale-125 transition-transform" />
+                                                    <span className="text-sm group-hover:text-foreground transition-colors">{feature}</span>
                                                 </div>
                                             ))}
                                             {plan.notIncluded.map((feature) => (
@@ -140,7 +141,7 @@ export default function PricingPage() {
                                         </div>
                                     </CardContent>
                                     <CardFooter>
-                                        <Button className="w-full" variant={plan.popular ? 'default' : 'outline'}>
+                                        <Button className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors" variant={plan.popular ? 'default' : 'outline'}>
                                             Get Started
                                         </Button>
                                     </CardFooter>

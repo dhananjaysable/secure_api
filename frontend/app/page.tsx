@@ -113,7 +113,7 @@ export default function Home() {
             <p className="text-muted-foreground text-lg">Enterprise-grade security features out of the box.</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               {
                 title: "Modern Architecture",
@@ -142,22 +142,18 @@ export default function Home() {
             ].map((feature, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
+                whileHover={{ scale: 1.05 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-colors group cursor-pointer"
               >
-                <TiltCard className="h-full">
-                  <Card className="h-full border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300">
-                    <div className="p-8 flex flex-col items-start h-full">
-                      <div className={`p-3 rounded-2xl bg-white/5 mb-6 group-hover:scale-110 transition-transform duration-300 ${feature.color}`}>
-                        <feature.icon className="w-8 h-8" />
-                      </div>
-                      <h3 className="text-xl font-bold mb-3 text-white">{feature.title}</h3>
-                      <p className="text-gray-400 leading-relaxed">{feature.description}</p>
-                    </div>
-                  </Card>
-                </TiltCard>
+                <div className="w-12 h-12 rounded-lg bg-background flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
+                  <feature.icon className={`w-6 h-6 ${feature.color}`} />
+                </div>
+                <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">{feature.title}</h3>
+                <p className="text-muted-foreground group-hover:text-foreground transition-colors">{feature.description}</p>
               </motion.div>
             ))}
           </div>

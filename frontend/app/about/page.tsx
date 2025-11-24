@@ -113,21 +113,19 @@ export default function AboutPage() {
                             key={stat.label}
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
+                            whileHover={{ scale: 1.05 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
                         >
-                            <TiltCard>
-                                <Card className="bg-card/50 backdrop-blur-sm border-border/50 text-center py-8">
-                                    <CardContent>
-                                        <div className="text-4xl font-bold text-primary mb-2">{stat.value}</div>
-                                        <div className="text-sm text-muted-foreground">{stat.label}</div>
-                                    </CardContent>
+                            <TiltCard className="h-full">
+                                <Card className="h-full bg-card/50 backdrop-blur-sm border-border/50 flex flex-col items-center justify-center p-6 text-center group hover:border-primary/50 transition-colors">
+                                    <div className="text-4xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform">{stat.value}</div>
+                                    <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">{stat.label}</div>
                                 </Card>
                             </TiltCard>
                         </motion.div>
                     ))}
                 </div>
-
                 {/* Timeline */}
                 <div className="space-y-12">
                     <h2 className="text-3xl font-bold text-center">Our Journey</h2>

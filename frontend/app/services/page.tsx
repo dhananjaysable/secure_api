@@ -98,25 +98,25 @@ export default function ServicesPage() {
                         Enterprise-grade security solutions tailored for your business needs.
                     </motion.p>
                 </div>
-
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {services.map((service, index) => (
                         <motion.div
                             key={index}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
+                            whileHover={{ scale: 1.03 }}
                             transition={{ delay: index * 0.1 }}
                         >
                             <TiltCard className="h-full">
-                                <Card className="h-full bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-colors overflow-hidden group">
+                                <Card className="h-full bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-colors overflow-hidden group cursor-pointer">
                                     <CardHeader>
-                                        <div className={`w-16 h-16 rounded-2xl ${service.bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                                        <div className={`w-16 h-16 rounded-2xl ${service.bg} flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300`}>
                                             <service.icon className={`w-8 h-8 ${service.color}`} />
                                         </div>
-                                        <CardTitle className="text-2xl">{service.title}</CardTitle>
+                                        <CardTitle className="text-2xl group-hover:text-primary transition-colors">{service.title}</CardTitle>
                                     </CardHeader>
                                     <CardContent>
-                                        <CardDescription className="text-base">
+                                        <CardDescription className="text-base group-hover:text-foreground transition-colors">
                                             {service.description}
                                         </CardDescription>
                                     </CardContent>
