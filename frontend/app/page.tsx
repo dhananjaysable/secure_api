@@ -6,6 +6,7 @@ import { ArrowRight, Shield, Lock, Zap, Cloud, Database, Globe, ShieldCheck } fr
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import TiltCard from '@/components/ui/TiltCard';
+import JellyCard from '@/components/ui/JellyCard';
 import Link from 'next/link';
 import AnimatedHeroBackground from '@/components/ui/AnimatedHeroBackground';
 import { jellySpring, jellyCard, jellyHover, jellyStagger } from '@/lib/animations';
@@ -149,21 +150,22 @@ export default function Home() {
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ scale: 1.05, y: -4 }}
-                whileTap={{ scale: 0.98 }}
                 viewport={{ once: true }}
                 transition={{ ...jellySpring.bouncy, delay: index * 0.1 }}
-                className="p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-colors group cursor-pointer"
               >
-                <motion.div
-                  className="w-12 h-12 rounded-lg bg-background flex items-center justify-center mb-4"
-                  whileHover={{ scale: 1.1, rotate: 360 }}
-                  transition={jellySpring.elastic}
-                >
-                  <feature.icon className={`w-6 h-6 ${feature.color}`} />
-                </motion.div>
-                <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">{feature.title}</h3>
-                <p className="text-muted-foreground group-hover:text-foreground transition-colors">{feature.description}</p>
+                <JellyCard intensity={0.6} className="h-full">
+                  <div className="p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-colors group cursor-pointer h-full">
+                    <motion.div
+                      className="w-12 h-12 rounded-lg bg-background flex items-center justify-center mb-4"
+                      whileHover={{ scale: 1.1, rotate: 360 }}
+                      transition={jellySpring.elastic}
+                    >
+                      <feature.icon className={`w-6 h-6 ${feature.color}`} />
+                    </motion.div>
+                    <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">{feature.title}</h3>
+                    <p className="text-muted-foreground group-hover:text-foreground transition-colors">{feature.description}</p>
+                  </div>
+                </JellyCard>
               </motion.div>
             ))}
           </div>
