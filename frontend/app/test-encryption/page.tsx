@@ -1,6 +1,6 @@
 'use client';
 
-import { EncryptionService } from '../lib/encryption';
+import { EncryptionService } from '@/lib/encryption';
 import { useState } from 'react';
 
 export default function TestEncryption() {
