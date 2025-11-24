@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 export default function AnimatedHeroBackground() {
     return (
@@ -49,30 +49,27 @@ export default function AnimatedHeroBackground() {
 }
 
 function MouseFollower() {
-    const [mousePosition, setMousePosition] = React.useState({ x: 0, y: 0 });
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
+
+    const springConfig = { damping: 30, stiffness: 200, mass: 0.5 };
+    const x = useSpring(mouseX, springConfig);
+    const y = useSpring(mouseY, springConfig);
 
     React.useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
-            setMousePosition({ x: e.clientX, y: e.clientY });
+            mouseX.set(e.clientX - 250);
+            mouseY.set(e.clientY - 250);
         };
 
         window.addEventListener('mousemove', handleMouseMove);
         return () => window.removeEventListener('mousemove', handleMouseMove);
-    }, []);
+    }, [mouseX, mouseY]);
 
     return (
         <motion.div
             className="fixed top-0 left-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[100px] pointer-events-none -z-10"
-            animate={{
-                x: mousePosition.x - 250,
-                y: mousePosition.y - 250,
-            }}
-            transition={{
-                type: "spring",
-                damping: 30,
-                stiffness: 200,
-                mass: 0.5
-            }}
+            style={{ x, y }}
         />
     );
 }

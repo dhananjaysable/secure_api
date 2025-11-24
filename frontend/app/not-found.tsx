@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Home, AlertTriangle } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -41,42 +41,47 @@ const ScrambleText = ({ text }: { text: string }) => {
 
 export default function NotFound() {
     // Mouse Parallax Logic
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
 
     // Particles Logic
     const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; value: string; delay: number; duration: number }>>([]);
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
-            setMousePosition({
-                x: e.clientX,
-                y: e.clientY,
-            });
+            mouseX.set(e.clientX);
+            mouseY.set(e.clientY);
         };
 
-        window.addEventListener('mousemove', handleMouseMove);
+        if (typeof window !== 'undefined') {
+            window.addEventListener('mousemove', handleMouseMove);
 
-        // Initialize particles on client only
-        setParticles(
-            [...Array(20)].map((_, i) => ({
-                id: i,
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
-                value: Math.random() > 0.5 ? '1' : '0',
-                delay: Math.random() * 5,
-                duration: Math.random() * 5 + 5,
-            }))
-        );
+            // Initialize particles on client only
+            setParticles(
+                [...Array(20)].map((_, i) => ({
+                    id: i,
+                    x: Math.random() * window.innerWidth,
+                    y: Math.random() * window.innerHeight,
+                    value: Math.random() > 0.5 ? '1' : '0',
+                    delay: Math.random() * 5,
+                    duration: Math.random() * 5 + 5,
+                }))
+            );
+        }
 
-        return () => window.removeEventListener('mousemove', handleMouseMove);
-    }, []);
+        return () => {
+            if (typeof window !== 'undefined') {
+                window.removeEventListener('mousemove', handleMouseMove);
+            }
+        };
+    }, [mouseX, mouseY]);
 
-    const calculateTransform = (factor: number) => {
-        if (typeof window === 'undefined') return { x: 0, y: 0 };
-        const x = (mousePosition.x - window.innerWidth / 2) * factor;
-        const y = (mousePosition.y - window.innerHeight / 2) * factor;
-        return { x, y };
-    };
+    // Parallax Transforms
+    const x1 = useTransform(mouseX, (x) => (x - (typeof window !== 'undefined' ? window.innerWidth : 0) / 2) * 0.02);
+    const y1 = useTransform(mouseY, (y) => (y - (typeof window !== 'undefined' ? window.innerHeight : 0) / 2) * 0.02);
+
+    const x2 = useTransform(mouseX, (x) => (x - (typeof window !== 'undefined' ? window.innerWidth : 0) / 2) * 0.03);
+    const y2 = useTransform(mouseY, (y) => (y - (typeof window !== 'undefined' ? window.innerHeight : 0) / 2) * 0.03);
 
     return (
         <div className="min-h-screen w-full flex flex-col items-center justify-center bg-background text-foreground overflow-hidden relative font-mono">
@@ -86,11 +91,11 @@ export default function NotFound() {
             {/* Background Elements with Parallax */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <motion.div
-                    animate={calculateTransform(0.02)}
+                    style={{ x: x1, y: y1 }}
                     className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[100px]"
                 />
                 <motion.div
-                    animate={calculateTransform(0.03)}
+                    style={{ x: x2, y: y2 }}
                     className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-destructive/10 rounded-full blur-[100px]"
                 />
 
@@ -207,6 +212,7 @@ export default function NotFound() {
                     <div className="pt-4">
                         <Link href="/">
                             <Button size="lg" className="group relative overflow-hidden">
+                                <div className="absolute inset-0 bg-primary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                                 <div className="absolute inset-0 bg-primary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                                 <Home className="mr-2 w-4 h-4 transition-transform group-hover:scale-110 relative z-10" />
                                 <span className="relative z-10">Return to Base</span>
