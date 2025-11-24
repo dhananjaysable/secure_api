@@ -83,3 +83,154 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
+
+/* Jelly Animation CSS Variables */
+:root {
+  --jelly-soft: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --jelly-medium: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --jelly-bouncy: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --jelly-elastic: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+}
+
+/* Jelly Animation Utilities */
+.jelly-hover {
+  transition: transform 0.3s var(--jelly-soft);
+}
+
+.jelly-hover:hover {
+  transform: scale(1.05);
+}
+
+.jelly-tap:active {
+  transform: scale(0.95);
+  transition: transform 0.1s var(--jelly-elastic);
+}
+
+.jelly-lift {
+  transition: transform 0.4s var(--jelly-medium);
+}
+
+.jelly-lift:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+.jelly-bounce-hover:hover {
+  animation: jelly-bounce 0.6s var(--jelly-bouncy);
+}
+
+.jelly-wiggle-hover:hover {
+  animation: jelly-wiggle 0.5s var(--jelly-elastic);
+}
+
+/* Jelly Keyframe Animations */
+@keyframes jelly-bounce {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  30% {
+    transform: scale(1.1);
+  }
+
+  50% {
+    transform: scale(0.95);
+  }
+
+  70% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes jelly-wiggle {
+
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(3deg);
+  }
+
+  50% {
+    transform: rotate(0deg);
+  }
+
+  75% {
+    transform: rotate(-3deg);
+  }
+}
+
+@keyframes jelly-pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes jelly-squash {
+  0% {
+    transform: scale(1, 1);
+  }
+
+  30% {
+    transform: scale(1.15, 0.85);
+  }
+
+  50% {
+    transform: scale(0.95, 1.05);
+  }
+
+  70% {
+    transform: scale(1.05, 0.95);
+  }
+
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+@keyframes jelly-modal-open {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-jelly-bounce {
+  animation: jelly-bounce 0.6s var(--jelly-bouncy);
+}
+
+.animate-jelly-wiggle {
+  animation: jelly-wiggle 0.5s var(--jelly-elastic);
+}
+
+.animate-jelly-pulse {
+  animation: jelly-pulse 2s var(--jelly-soft) infinite;
+}
+
+.animate-jelly-squash {
+  animation: jelly-squash 0.6s var(--jelly-elastic);
+}
+
+.animate-jelly-modal {
+  animation: jelly-modal-open 0.5s var(--jelly-elastic);
+}

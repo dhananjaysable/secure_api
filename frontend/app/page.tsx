@@ -8,6 +8,7 @@ import { Card } from '@/components/ui/card';
 import TiltCard from '@/components/ui/TiltCard';
 import Link from 'next/link';
 import AnimatedHeroBackground from '@/components/ui/AnimatedHeroBackground';
+import { jellySpring, jellyCard, jellyHover, jellyStagger } from '@/lib/animations';
 
 interface WeatherForecast {
   date: string;
@@ -55,7 +56,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
+            transition={jellySpring.bouncy}
             className="inline-block px-4 py-1.5 rounded-full border border-primary/20 bg-primary/10 text-primary text-sm font-medium mb-4"
           >
             Next-Gen Security Platform
@@ -64,7 +65,7 @@ export default function Home() {
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
+            transition={{ ...jellySpring.medium, delay: 0.2 }}
             className="text-5xl md:text-7xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70"
           >
             Secure Your Digital <br />
@@ -74,7 +75,7 @@ export default function Home() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
+            transition={{ ...jellySpring.soft, delay: 0.4 }}
             className="text-xl text-muted-foreground max-w-2xl mx-auto"
           >
             Advanced encryption, real-time threat detection, and seamless integration for modern applications.
@@ -83,18 +84,22 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
+            transition={{ ...jellySpring.bouncy, delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <Link href="/register">
-              <Button size="lg" className="h-12 px-8 text-lg rounded-full shadow-lg shadow-primary/20">
-                Get Started <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={jellySpring.elastic}>
+                <Button size="lg" className="h-12 px-8 text-lg rounded-full shadow-lg shadow-primary/20">
+                  Get Started <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </motion.div>
             </Link>
             <Link href="/interactive">
-              <Button variant="outline" size="lg" className="h-12 px-8 text-lg rounded-full backdrop-blur-sm bg-background/50">
-                View Demo
-              </Button>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={jellySpring.elastic}>
+                <Button variant="outline" size="lg" className="h-12 px-8 text-lg rounded-full backdrop-blur-sm bg-background/50">
+                  View Demo
+                </Button>
+              </motion.div>
             </Link>
           </motion.div>
         </div>
@@ -144,14 +149,19 @@ export default function Home() {
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.05, y: -4 }}
+                whileTap={{ scale: 0.98 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ ...jellySpring.bouncy, delay: index * 0.1 }}
                 className="p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-colors group cursor-pointer"
               >
-                <div className="w-12 h-12 rounded-lg bg-background flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
+                <motion.div
+                  className="w-12 h-12 rounded-lg bg-background flex items-center justify-center mb-4"
+                  whileHover={{ scale: 1.1, rotate: 360 }}
+                  transition={jellySpring.elastic}
+                >
                   <feature.icon className={`w-6 h-6 ${feature.color}`} />
-                </div>
+                </motion.div>
                 <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">{feature.title}</h3>
                 <p className="text-muted-foreground group-hover:text-foreground transition-colors">{feature.description}</p>
               </motion.div>
