@@ -1,191 +1,186 @@
 'use client';
 
-import { useState } from 'react';
-import { useAuth } from '../../lib/auth-context';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '../../components/ui/button';
-import { Input } from '../../components/ui/input';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../../components/ui/card';
-import { Lock, Mail, User } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { useAuth } from '@/lib/auth-context';
+import Link from 'next/link';
+import { Lock, Mail, User, ArrowRight } from 'lucide-react';
+import AuthPattern from '@/components/ui/AuthPattern';
 
 export default function RegisterPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [honeypot, setHoneypot] = useState(''); // Honeypot state
+    const [honeypot, setHoneypot] = useState('');
     const [error, setError] = useState('');
-    const { register, isLoading } = useAuth();
-    const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
+    const { register } = useAuth();
+
+    const validatePassword = (pwd: string) => {
+        if (pwd.length < 8) return "Password must be at least 8 characters";
+        if (!/[A-Z]/.test(pwd)) return "Password must contain an uppercase letter";
+        if (!/[a-z]/.test(pwd)) return "Password must contain a lowercase letter";
+        if (!/[0-9]/.test(pwd)) return "Password must contain a number";
+        if (!/[!@#$%^&*]/.test(pwd)) return "Password must contain a special character";
+        return null;
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
 
-        // Honeypot Check
         if (honeypot) {
-            // Silently fail or log the bot attempt
-            console.warn("Bot detected via honeypot");
+            console.log("Bot detected");
             return;
         }
 
-        // Enhanced Validation
-        if (password.length < 8) {
-            setError('Password must be at least 8 characters long.');
-            return;
-        }
-        if (!/[A-Z]/.test(password)) {
-            setError('Password must contain at least one uppercase letter.');
-            return;
-        }
-        if (!/[a-z]/.test(password)) {
-            setError('Password must contain at least one lowercase letter.');
-            return;
-        }
-        if (!/[0-9]/.test(password)) {
-            setError('Password must contain at least one number.');
-            return;
-        }
-        if (!/[!@#$%^&*]/.test(password)) {
-            setError('Password must contain at least one special character (!@#$%^&*).');
+        const pwdError = validatePassword(password);
+        if (pwdError) {
+            setError(pwdError);
             return;
         }
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            setError('Please enter a valid email address.');
-            return;
-        }
+        setIsLoading(true);
 
-        const success = await register(email, password, firstName, lastName);
-        if (success) {
-            router.push('/');
-        } else {
-            setError('Registration failed. Email might be already in use.');
+        try {
+            await register(email, password, firstName, lastName);
+        } catch (err: any) {
+            setError(err.message || 'Registration failed. Please try again.');
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted p-4">
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-primary/5 blur-[100px]" />
-                <div className="absolute top-[40%] -left-[10%] w-[40%] h-[40%] rounded-full bg-secondary/10 blur-[100px]" />
+        <div className="min-h-screen w-full flex">
+            {/* Left Side - Animated Pattern */}
+            <div className="hidden lg:block w-1/2 relative bg-slate-900">
+                <AuthPattern />
             </div>
 
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="w-full max-w-md z-10"
-            >
-                <Card className="border-border/50 shadow-xl">
-                    <CardHeader className="space-y-1 text-center">
-                        <CardTitle className="text-2xl font-bold tracking-tight">Create an account</CardTitle>
-                        <CardDescription>
-                            Enter your details to get started
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <form onSubmit={handleSubmit} className="space-y-4">
-                            {/* Honeypot Field - Invisible to users, visible to bots */}
-                            <div style={{ display: 'none' }} aria-hidden="true">
-                                <Input
-                                    type="text"
-                                    name="website"
-                                    tabIndex={-1}
-                                    autoComplete="off"
-                                    value={honeypot}
-                                    onChange={(e) => setHoneypot(e.target.value)}
-                                />
-                            </div>
+            {/* Right Side - Register Form */}
+            <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-background">
+                <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="w-full max-w-md space-y-8"
+                >
+                    <div className="text-center lg:text-left">
+                        <h1 className="text-3xl font-bold tracking-tight">Create an account</h1>
+                        <p className="text-muted-foreground mt-2">
+                            Join thousands of developers securing their APIs
+                        </p>
+                    </div>
 
-                            <div className="grid grid-cols-2 gap-4">
+                    <Card className="border-border/50 shadow-xl bg-card/50 backdrop-blur-sm">
+                        <CardHeader>
+                            <CardTitle>Sign Up</CardTitle>
+                            <CardDescription>
+                                Enter your details to create your account
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <form onSubmit={handleSubmit} className="space-y-4">
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <div className="relative">
+                                            <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                                            <Input
+                                                placeholder="First Name"
+                                                value={firstName}
+                                                onChange={(e) => setFirstName(e.target.value)}
+                                                className="pl-10"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <div className="relative">
+                                            <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                                            <Input
+                                                placeholder="Last Name"
+                                                value={lastName}
+                                                onChange={(e) => setLastName(e.target.value)}
+                                                className="pl-10"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div className="space-y-2">
                                     <div className="relative">
-                                        <User className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                                        <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                                         <Input
-                                            id="firstName"
-                                            type="text"
-                                            placeholder="First Name"
-                                            value={firstName}
-                                            onChange={(e) => setFirstName(e.target.value)}
-                                            className="pl-9"
+                                            type="email"
+                                            placeholder="name@example.com"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            className="pl-10"
                                             required
                                         />
                                     </div>
                                 </div>
+
                                 <div className="space-y-2">
                                     <div className="relative">
-                                        <User className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                                        <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                                         <Input
-                                            id="lastName"
-                                            type="text"
-                                            placeholder="Last Name"
-                                            value={lastName}
-                                            onChange={(e) => setLastName(e.target.value)}
-                                            className="pl-9"
+                                            type="password"
+                                            placeholder="Password"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            className="pl-10"
                                             required
                                         />
                                     </div>
+                                    <p className="text-xs text-muted-foreground">
+                                        Must be at least 8 characters with uppercase, lowercase, number, and special char.
+                                    </p>
                                 </div>
-                            </div>
-                            <div className="space-y-2">
-                                <div className="relative">
-                                    <Mail className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                                    <Input
-                                        id="email"
-                                        type="email"
-                                        placeholder="name@example.com"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        className="pl-9"
-                                        required
+
+                                {/* Honeypot field - hidden from users */}
+                                <div className="hidden">
+                                    <input
+                                        type="text"
+                                        value={honeypot}
+                                        onChange={(e) => setHoneypot(e.target.value)}
+                                        tabIndex={-1}
+                                        autoComplete="off"
                                     />
                                 </div>
+
+                                {error && (
+                                    <motion.div
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: 'auto' }}
+                                        className="text-red-500 text-sm bg-red-500/10 p-3 rounded-md"
+                                    >
+                                        {error}
+                                    </motion.div>
+                                )}
+
+                                <Button type="submit" className="w-full" isLoading={isLoading}>
+                                    Create Account <ArrowRight className="ml-2 h-4 w-4" />
+                                </Button>
+                            </form>
+                        </CardContent>
+                        <CardFooter>
+                            <div className="text-sm text-center text-muted-foreground w-full">
+                                Already have an account?{' '}
+                                <Link href="/login" className="text-primary hover:underline underline-offset-4 font-medium">
+                                    Sign in
+                                </Link>
                             </div>
-                            <div className="space-y-2">
-                                <div className="relative">
-                                    <Lock className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                                    <Input
-                                        id="password"
-                                        type="password"
-                                        placeholder="Password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        className="pl-9"
-                                        required
-                                    />
-                                </div>
-                                <p className="text-xs text-muted-foreground">
-                                    Must be at least 8 characters with uppercase, lowercase, number, and special char.
-                                </p>
-                            </div>
-                            {error && (
-                                <motion.div
-                                    initial={{ opacity: 0, height: 0 }}
-                                    animate={{ opacity: 1, height: 'auto' }}
-                                    className="text-sm text-destructive text-center font-medium"
-                                >
-                                    {error}
-                                </motion.div>
-                            )}
-                            <Button type="submit" className="w-full" isLoading={isLoading}>
-                                Create Account
-                            </Button>
-                        </form>
-                    </CardContent>
-                    <CardFooter className="flex justify-center text-sm text-muted-foreground">
-                        <div>
-                            Already have an account?{' '}
-                            <Link href="/login" className="text-primary hover:underline font-medium">
-                                Sign in
-                            </Link>
-                        </div>
-                    </CardFooter>
-                </Card>
-            </motion.div>
+                        </CardFooter>
+                    </Card>
+                </motion.div>
+            </div>
         </div>
     );
 }
